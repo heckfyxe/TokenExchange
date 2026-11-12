@@ -18,7 +18,7 @@ contract RareCoin is ERC20("RareCoin", "RARE") {
             abi.encodeWithSignature("transferFrom(address,address,uint256)", msg.sender, address(this), amount)
         );
         require(success);
-        require(abi.decode(data, (bool)));
+        require(data.length == 0 || abi.decode(data, (bool)));
         totalSupply += amount;
         balanceOf[msg.sender] += amount;
         emit Transfer(address(0), msg.sender, amount);
