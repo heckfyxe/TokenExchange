@@ -7,5 +7,6 @@ contract SkillsCoin is ERC20("SkillsCoin", "SKL") {
     function mint(uint256 amount) public {
         balanceOf[msg.sender] += amount;
         totalSupply += amount;
+        emit Transfer(address(0), msg.sender, amount);
     }
 }

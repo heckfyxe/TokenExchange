@@ -13,6 +13,9 @@ abstract contract ERC20 {
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
     constructor(string memory _name, string memory _symbol) {
         name = _name;
         symbol = _symbol;
@@ -25,6 +28,7 @@ abstract contract ERC20 {
     function approve(address spender, uint256 value) public returns (bool) {
         require(spender != address(0), ZeroAddressNotAllowed());
         allowance[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
         return true;
     }
 
@@ -41,6 +45,7 @@ abstract contract ERC20 {
         require(balanceOf[from] >= value, NotEnoughBalance());
         balanceOf[from] -= value;
         balanceOf[to] += value;
+        emit Transfer(from, to, value);
         return true;
     }
 }

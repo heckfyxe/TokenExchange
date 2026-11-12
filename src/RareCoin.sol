@@ -21,5 +21,6 @@ contract RareCoin is ERC20("RareCoin", "RARE") {
         require(abi.decode(data, (bool)));
         totalSupply += amount;
         balanceOf[msg.sender] += amount;
+        emit Transfer(address(0), msg.sender, amount);
     }
 }
